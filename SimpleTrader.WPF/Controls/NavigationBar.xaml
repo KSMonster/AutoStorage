@@ -1,0 +1,113 @@
+﻿<UserControl
+    x:Class="SimpleTrader.WPF.Controls.NavigationBar"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:converters="clr-namespace:SimpleTrader.WPF.Converters"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:SimpleTrader.WPF.Controls"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:nav="clr-namespace:SimpleTrader.WPF.State.Navigators"
+    xmlns:vm="clr-namespace:SimpleTrader.WPF.ViewModels"
+    d:DesignHeight="450"
+    d:DesignWidth="800"
+    mc:Ignorable="d">
+    <UserControl.Resources>
+        <converters:EqualValueToParameterConverter x:Key="EqualValueToParameterConverter" />
+    </UserControl.Resources>
+    <Grid Name="MainGrid">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="auto" />
+        </Grid.RowDefinitions>
+
+        <Grid Grid.Row="0" Background="{StaticResource BrushPrimary1}">
+            <TextBlock
+                MaxWidth="1000"
+                Padding="10"
+                FontSize="28"
+                Foreground="White"
+                Text="Auto Storage" />
+        </Grid>
+
+
+        <Grid
+            Name="Navigation"
+            Grid.Row="1"
+            Width="{Binding ElementName=MainGrid, Path=ActualWidth}"
+            Background="{StaticResource BrushPrimary2}"
+            RenderOptions.EdgeMode="Aliased">
+            <Grid.Resources>
+                <Style BasedOn="{StaticResource NavButton}" TargetType="RadioButton" />
+            </Grid.Resources>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="auto" />
+                <ColumnDefinition Width="auto" />
+                <ColumnDefinition Width="auto" />
+                <ColumnDefinition Width="auto" />
+                <ColumnDefinition Width="auto" />
+                <ColumnDefinition Width="auto" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+
+            <RadioButton
+                Grid.Column="0"
+                Command="{Binding UpdateCurrentViewModelCommand}"
+                CommandParameter="{x:Static nav:ViewType.Box}"
+                Content="Boxes"
+                Visibility="{Binding LogOutVisibility}"
+                IsChecked="{Binding Navigator.CurrentViewModel, Mode=OneWay, Converter={StaticResource EqualValueToParameterConverter}, ConverterParameter={x:Type vm:BoxViewModel}}" />
+            <RadioButton
+                Grid.Column="1"
+                Command="{Binding UpdateCurrentViewModelCommand}"
+                CommandParameter="{x:Static nav:ViewType.Search}"
+                Content="Search"
+                Visibility="{Binding LogOutVisibility}"
+                IsChecked="{Binding Navigator.CurrentViewModel, Mode=OneWay, Converter={StaticResource EqualValueToParameterConverter}, ConverterParameter={x:Type vm:SearchViewModel}}" />
+            <RadioButton
+                Grid.Column="2"
+                Command="{Binding UpdateCurrentViewModelCommand}"
+                CommandParameter="{x:Static nav:ViewType.Put}"
+                Content="Put"
+                Visibility="{Binding LogOutVisibility}"
+                IsChecked="{Binding Navigator.CurrentViewModel, Mode=OneWay, Converter={StaticResource EqualValueToParameterConverter}, ConverterParameter={x:Type vm:PutViewModel}}" />
+            <RadioButton
+                Grid.Column="3"
+                Command="{Binding UpdateCurrentViewModelCommand}"
+                CommandParameter="{x:Static nav:ViewType.CreateItem}"
+                Content="Create Item Type"
+                IsChecked="{Binding Navigator.CurrentViewModel, Mode=OneWay, Converter={StaticResource EqualValueToParameterConverter}, ConverterParameter={x:Type vm:CreateItemViewModel}}"
+                Visibility="{Binding AdminVisibility}" />
+            <RadioButton
+                Grid.Column="4"
+                Command="{Binding UpdateCurrentViewModelCommand}"
+                CommandParameter="{x:Static nav:ViewType.CreateBoxes}"
+                Content="Create Boxes"
+                IsChecked="{Binding Navigator.CurrentViewModel, Mode=OneWay, Converter={StaticResource EqualValueToParameterConverter}, ConverterParameter={x:Type vm:CreateBoxesViewModel}}"
+                Visibility="{Binding AdminVisibility}" />
+            <RadioButton
+                Grid.Column="5"
+                Command="{Binding UpdateCurrentViewModelCommand}"
+                CommandParameter="{x:Static nav:ViewType.Logs}"
+                Content="Logs"
+                Visibility="{Binding LogOutVisibility}"
+                IsChecked="{Binding Navigator.CurrentViewModel, Mode=OneWay, Converter={StaticResource EqualValueToParameterConverter}, ConverterParameter={x:Type vm:LogViewModel}}" />
+            <RadioButton
+                Grid.Column="6"
+                HorizontalAlignment="Right"
+                Command="{Binding UpdateCurrentViewModelCommand}"
+                CommandParameter="{x:Static nav:ViewType.Home}"
+                Content="Login"
+                IsChecked="{Binding Navigator.CurrentViewModel, Mode=OneWay, Converter={StaticResource EqualValueToParameterConverter}, ConverterParameter={x:Type vm:LoginViewModel}}"
+                Visibility="{Binding LoginVisibility}" />
+            <RadioButton
+                Grid.Column="7"
+                HorizontalAlignment="Right"
+                Command="{Binding LogOutCommand}"
+                CommandParameter="{x:Static nav:ViewType.Home}"
+                Content="LogOut"
+                IsChecked="{Binding Navigator.CurrentViewModel, Mode=OneWay, Converter={StaticResource EqualValueToParameterConverter}, ConverterParameter={x:Type vm:LoginViewModel}}"
+                Visibility="{Binding LogOutVisibility}" />
+        </Grid>
+
+    </Grid>
+</UserControl>

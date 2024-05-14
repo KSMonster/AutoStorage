@@ -1,0 +1,31 @@
+﻿<UserControl
+    x:Class="SimpleTrader.WPF.Views.LogView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:controls="clr-namespace:SimpleTrader.WPF.Controls"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:SimpleTrader.WPF.Views"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:vm="clr-namespace:SimpleTrader.WPF.ViewModels"
+    d:DataContext="{d:DesignInstance Type=vm:LogViewModel}"
+    d:DesignHeight="450"
+    d:DesignWidth="800"
+    mc:Ignorable="d">
+    <Grid>
+        <StackPanel Margin="10">
+
+            <TextBlock Text="Logs:" />
+
+            <ListView x:Name="SearchResultsListBox" ItemsSource="{Binding LogList}"
+                MaxHeight="275">
+                <ListView.View>
+                    <GridView>
+                        <GridViewColumn DisplayMemberBinding="{Binding Operation}" Header="Operation" />
+                        <GridViewColumn DisplayMemberBinding="{Binding Date}" Header="DateTime" />
+                    </GridView>
+                </ListView.View>
+            </ListView>
+
+        </StackPanel>
+    </Grid>
+</UserControl>
